@@ -1,0 +1,195 @@
+/******************************************************************************
+* Copyright (c) 2005, 2015  Ericsson AB
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the Eclipse Public License v1.0
+* which accompanies this distribution, and is available at
+* http://www.eclipse.org/legal/epl-v10.html
+*
+* Contributors:
+* Gabor Szalai
+* Janos Kovesdi
+* Eduard Czimbalmos
+******************************************************************************/
+//
+//  File:               ICAPmsg_Types.ttcn
+//  Rev:                R2A
+//  Prodnr:             CNL 113 779 
+//  Reference:          RFC3507, RFC 2616 
+
+module ICAP_Types
+{
+        import from HTTPmsg_Types all;
+
+        external function f_ICAP_Enc_binary(in PDU_ICAP pl_msg) return octetstring;
+        external function f_ICAP_Dec_binary(in octetstring pl_stream) return PDU_ICAP;
+
+        external function f_ICAP_MessageLength(in octetstring pl_stream) return integer;
+
+  	type enumerated Method{
+  	  REQMOD  (0),
+ 	  RESPMOD (1),
+ 	  OPTIONS (2)
+  	};
+  	
+  	type set of charstring Param_List;
+
+      	type charstring Authorization;
+      	 
+      	type integer Allow;
+      				
+    	type charstring Cache_Control; 
+    		
+    	type charstring Connection;
+    		
+    	type charstring Date;	
+    		
+    	type record Encapsulated{
+    	  integer	req_hdr optional,
+    	  integer 	res_hdr optional,
+    	  integer	res_body optional,
+    	  integer	req_body optional,
+    	  integer	null_body optional,
+    	  integer	opt_body optional			
+    	};
+    	
+    	type charstring Expires; 
+    		
+    	type charstring From;
+    			
+    	type charstring Host;
+    	
+    	type charstring ISTag;
+    	
+    	type integer Max_Connections;
+    	
+    	type charstring Methods;
+    	
+    	type charstring Opt_body_type;
+    	
+    	type integer Options_TTL;	
+    	
+    	type charstring Pragma; 	
+    		
+    	type integer Preview;	
+    		
+    	type charstring Referer;
+    	
+    	type Param_List Server;
+    	
+    	type charstring Service;
+    	
+    	type charstring Service_ID;
+    		
+    	type charstring Trailer;
+    	
+    	type charstring Transfer_Preview;
+    	
+    	type charstring Transfer_Ignore; 
+    	 
+    	type Param_List Transfer_Complete;
+	
+    	type Param_List Upgrade; 	
+    	
+    	type Param_List User_Agent;		
+		
+        type record UndefinedHeader{
+          charstring          headerName,
+          charstring          headerValue
+      	}
+      	
+      	type set of UndefinedHeader UndefinedHeader_List;
+		
+    	//Message Headers for request
+    	type set RequestHeaders{
+      		Authorization           authorization optional,
+      		Allow			allow optional,
+	        Cache_Control 	        cache_control optional,
+		Connection		connection optional,
+		Date			date optional,
+                Encapsulated 	        encapsulated, //MUST be present in every ICAP message
+		Expires 		expires optional,
+		From 			fRom optional,
+		Host			host optional,
+		Pragma 			pragma optional,
+		Preview			preview optional,
+		Referer 		referer optional,
+		Trailer 		trailer optional,
+		Upgrade 		upgrade optional,
+                User_Agent		user_agent optional,
+                //Undefined Headers
+                UndefinedHeader_List    undefinedHeader_List optional
+    	}
+    
+    	//Message Headers for response
+    	type set ResponseHeaders{
+      		Allow		      allow optional,
+	        Cache_Control 	      cache_control optional,
+		Connection	      connection optional,
+		Date		      date optional,
+		Encapsulated 	      encapsulated, //MUST be present in every ICAP message
+		Expires 	      expires optional,
+		ISTag		      istag optional,
+		Max_Connections	      max_connections optional,
+		Methods		      methods optional,
+		Opt_body_type 	      opt_body_type optional,
+		Options_TTL	      options_ttl optional,
+		Pragma 		      pragma optional,
+		Preview		      preview optional,
+		Server 		      server optional,
+		Service		      service optional,
+		Service_ID            service_id optional,
+		Trailer 	      trailer optional,
+		Transfer_Preview      transfer_preview optional,
+		Transfer_Ignore       transfer_ignore optional,
+		Transfer_Complete     transfer_complete optional,
+		Upgrade 	      upgrade optional,
+                //Undefined Headers
+                UndefinedHeader_List  undefinedHeader_List optional
+    	}
+  
+  	type charstring Net_Path;
+  
+  	type charstring Query;
+  
+  	type record Uri{
+   	  charstring 	scheme,
+    	  Net_Path	net_path,
+    	  Query	        query optional
+  	};
+  
+  	type record RequestLine{
+    	  Method      method,
+          Uri	      uri,
+    	  charstring  version
+  	};
+  
+  	type record StatusLine{
+    	  charstring 	version,
+    	  integer 	statuscode,
+    	  charstring	reasonPhrase
+  	};
+  
+        type set of HTTPMessage HTTPMessage_List;
+
+        type octetstring HTTP_Body;
+
+  	type record PDU_ICAP_Request{
+  		RequestLine	    requestline,
+  		RequestHeaders      headers,
+  		HTTPMessage_List    http_headers optional,
+  		HTTP_Body	    http_body optional
+  	};
+  
+  	type record PDU_ICAP_Response{
+    	    StatusLine		statusline,
+            ResponseHeaders	headers,
+  	    HTTPMessage_List	http_headers optional,
+  	    HTTP_Body	        http_body optional
+  	};
+
+  	type union PDU_ICAP{
+    	    PDU_ICAP_Request  request,
+    	    PDU_ICAP_Response response,
+    	    charstring	      raw
+  	}
+}with {extension "version R2A"}

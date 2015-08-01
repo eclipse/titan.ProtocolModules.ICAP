@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2015 Ericsson
+
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+
+
+   File:               ICAP_CNL113779.tpd
+   Description:        tpd project file
+   Rev:                R2A
+   Prodnr:             CNL 113 779
+
+ -->
+<TITAN_Project_File_Information version="1.0">
+  <ProjectName>ICAP_CNL113779</ProjectName>
+  <ReferencedProjects>
+    <ReferencedProject name="HTTPmsg_CNL113312" projectLocationURI="../../TestPorts/HTTPmsg_CNL113312/HTTPmsg_CNL113312.tpd"/>
+  </ReferencedProjects>
+  <Folders>
+    <FolderResource projectRelativePath="src" relativeURI="src"/>
+  </Folders>
+  <Files>
+    <FileResource projectRelativePath="src/ICAP.l" relativeURI="src/ICAP.l"/>
+    <FileResource projectRelativePath="src/ICAP.y" relativeURI="src/ICAP.y"/>
+    <FileResource projectRelativePath="src/ICAP_EncDec.cc" relativeURI="src/ICAP_EncDec.cc"/>
+    <FileResource projectRelativePath="src/ICAP_Types.ttcn" relativeURI="src/ICAP_Types.ttcn"/>
+    <FileResource projectRelativePath="src/ICAP_parse.h" relativeURI="src/ICAP_parse.h"/>
+    <FileResource projectRelativePath="src/ICAP_parse_.tab.c" relativeURI="src/ICAP_parse_.tab.c"/>
+    <FileResource projectRelativePath="src/ICAP_parse_.tab.h" relativeURI="src/ICAP_parse_.tab.h"/>
+    <FileResource projectRelativePath="src/lex.ICAP_parse_.c" relativeURI="src/lex.ICAP_parse_.c"/>
+  </Files>
+  <ActiveConfiguration>Default</ActiveConfiguration>
+  <Configurations>
+    <Configuration name="Default">
+      <ProjectProperties>
+        <MakefileSettings>
+          <generateInternalMakefile>true</generateInternalMakefile>
+          <GNUMake>true</GNUMake>
+          <incrementalDependencyRefresh>true</incrementalDependencyRefresh>
+          <targetExecutable>bin/ICAP_CNL113779</targetExecutable>
+          <buildLevel>Level 3 - Creating object files with dependency update</buildLevel>
+        </MakefileSettings>
+        <LocalBuildSettings>
+          <workingDirectory>bin</workingDirectory>
+        </LocalBuildSettings>
+      </ProjectProperties>
+    </Configuration>
+  </Configurations>
+</TITAN_Project_File_Information>
