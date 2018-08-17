@@ -1,0 +1,136 @@
+---
+Author: János Kövesdi
+Version: 1551-CNL 113 779, Rev. A
+Date: 2013-06-04
+
+---
+= ICAP Protocol Module for TTCN-3 Toolset with TITAN, Description
+:author: János Kövesdi
+:revnumber: 1551-CNL 113 779, Rev. A
+:revdate: 2013-06-04
+:toc:
+
+== How to Read This Document
+
+This is the Description for the Internet Content Adaption Protocol (ICAP) protocol module. The Internet Content Adaption Protocol (ICAP) protocol module is developed for the TTCN-3 Toolset with TITAN.
+
+== Presumed Knowledge
+
+To use this protocol module the knowledge of the TTCN-3 language <<_3, [3]>> is essential.
+
+= Functionality
+
+The protocol module implements the message structure of the Internet Content Adaption Protocol (ICAP), using the standard specification language TTCNv3. This allows defining of test data in the TTCNv3 language <<_3, [3]>> and correctly encoding/decoding these messages when executing test suites using the TITAN TTCNv3 test environment.
+
+== Protocol Version Implemented
+
+This set of protocol modules implements protocol messages and constants of https://tools.ietf.org/html/rfc3507[RFC 3507] and https://tools.ietf.org/html/rfc2616[RFC 2616].
+
+== Routing Functionality
+
+Routing functionality is not performed.
+
+== Modified and Non-Implemented Protocol Elements
+
+=== Relaxed Conditions
+
+There is no constraint between received and sent messages.
+
+== Ericsson-Specific Changes
+
+There is no Ericsson specific change in this product.
+
+== Backward Incompatibilities
+
+None.
+
+== System Requirements
+
+Protocol modules are a set of TTCN-3 source code files that can be used as part of TTCN-3 test suites only. Hence, protocol modules alone do not put specific requirements on the system used. However, in order to compile and execute a TTCN-3 test suite using the set of protocol modules the following system requirements must be satisfied:
+
+* TITAN TTCN-3 Test Executor version R7A (1.7.pl0) or higher installed. For installation guide see <<_4, [4]>>.
+
+NOTE: This version of the protocol module is not compatible with TITAN releases earlier than R7A.
+
+= Feature List
+
+[[encoding-decoding-and-other-related-functions]]
+== Encoding/Decoding and Other Related Functions
+
+This product also contains encoding/decoding functions that assure correct encoding of messages when sent from TITAN and correct decoding of messages when received by TITAN. Implemented encoding/decoding functions:
+
+[cols=3*,options=header]
+|===
+
+|Name |Type of formal parameters |Type of return value
+
+|`f_ICAP_Enc_binary` |(in PDU_ICAP `pl_msg`) |octetstring;
+|`f_ICAP_Dec_binary` |(in octetstring `pl_stream`) |PDU_ICAP;
+|`f_ICAP_MessageLength` |(in octetstring `pl_stream`) |integer;
+|===
+
+=== Message Length Function
+
+The `f_ICAP_MessageLength` function returns the length of the ICAP message from an octetstring. If the length cannot be determined, then it returns the value `_-1_`.
+
+= Protocol Modules
+
+== Overview
+
+Protocol modules implement the message structure of the related protocol in a formalized way, using the standard specification language TTCN-3. This allows defining of test data (templates) in the TTCN-3 language <<_3, [3]>> and correctly encoding/decoding messages when executing test suites using the Titan TTCN-3 test environment.
+
+== Installation
+
+The set of protocol modules can be used for developing TTCN-3 test suites using any text editor. However, to make the work more efficient a TTCN-3- enabled text editor is recommended (e.g. `nedit`, `xemacs`). Since the ICAP protocol is used as a part of a TTCN-3 test suite, this requires Titan TTCN-3 Test Executor be installed before the module can be compiled and executed together with other parts of the test suite. For more details on the installation of TTCN-3 Test Executor see the relevant section of <<_4, [4]>>.
+
+== Configuration
+
+== Module Parameters
+
+No module parameters are used in the ICAP protocol module.
+
+== Parser Generation Rules
+
+In order to generate the _.c_ and _.h_ files from _.y_ and _.l_ the following _Makefile_ rules should be used:
+
+[source]
+----
+ICAP_parse_.tab.c ICAP _parse_.tab.h: ICAP.y
+          bison -dv -p ICAP _parse_ -b ICAP _parse_ $<
+
+lex. ICAP _parse_.c: ICAP.l
+          flex -Cfr -8 -Bvpp -P ICAP _parse_ ICAP.l
+----
+
+The _.h_ and _.c_ parser files should be generated during the protocol module development. Only the pregenerated files are needed for test case development and test execution.
+
+= Terminology
+
+No specific terminology used.
+
+= Abbreviations
+
+ETSI:: European Telecommunications Standards Institute
+
+IETF:: Internet Engineering Task Force
+
+ICAP:: Internet Content Adaption Protocol
+
+TTCNv3:: Testing and Test Control Notation version 3
+
+= References
+
+[[_1]]
+[1] https://tools.ietf.org/html/rfc3507[RFC 3507] +
+Internet Content Adaption Protocol
+
+[[_2]]
+[2] https://tools.ietf.org/html/rfc2616[RFC 2616] +
+Hypertext Transfer Protocol
+
+[[_3]]
+[3] ETSI ES 201 873-1 v.3.2.1 (02/2007) +
+The Testing and Test Control Notation version 3. Part 1: Core Language
+
+[[_4]]
+[4] User Guide for the TITAN TTCN-3 Test Executor
